@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final store = GetStorage();
   @override
   Widget build(BuildContext context) {
-  //  final int id = store.read('categoryId');
+    //  final int id = store.read('categoryId');
     final size = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -46,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   isScrollable: true,
                   onTap: (value) {
                     final int id = store.read('categoryId');
-                  //id;
-             log('msg id $id');
+                    //id;
+                    log('msg id $id');
                   },
                   unselectedLabelColor: appBlack,
                   indicatorColor: appBlack,
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           CircularProgressIndicator();
                         }
                         return Tab(
-                            text: blogController.blogsCategory[index].id
+                            text: blogController.blogsCategory[index].name
                                 .toString());
                       });
                     },
@@ -72,9 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
           body: TabBarView(
             children:
                 List.generate(blogController.blogsCategory.length, (index) {
-                  log("${ blogController.blogsCategory[index].id}");
+              log("${blogController.blogsCategory[index].id}");
               store.write(
-                  'categoryId',  blogController.blogsCategory[index].id!);
+                  'categoryId', blogController.blogsCategory[index].id!);
               return AllNews(
                 index: blogController.blogsCategory[index].id!,
               );

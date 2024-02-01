@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'presentation/core/const.dart';
@@ -6,6 +7,7 @@ import 'presentation/pages/home_screen/home_screen.dart';
 import 'presentation/pages/latest_news_screen/latest_news_screen.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 

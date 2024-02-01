@@ -7,6 +7,7 @@ import '../../domain/category_model.dart';
 
 class CategoryController extends GetxController {
   var loding = true.obs;
+  RxInt selectedChapterId = 0.obs;
   RxList<BlogsCategory> blogsCategory = <BlogsCategory>[].obs;
   Future<List<BlogsCategory>?> getCategory() async {
     try {
@@ -21,7 +22,9 @@ class CategoryController extends GetxController {
     }
     return null;
   }
-
+setSelectedChapterId(index) {
+    selectedChapterId.value = blogsCategory.value[index].id!;
+  }
   @override
   void onInit() {
     super.onInit();
