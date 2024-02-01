@@ -5,26 +5,33 @@ import '../core/const.dart';
 class CustomNewsTailWidgets extends StatelessWidget {
   CustomNewsTailWidgets({
     this.height = 0.2,
+    required this.img,
+    required this.title,
+    required this.time,
     super.key,
   });
-
+  String img;
   double height;
+  String title;
+
+  String time;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: size.height * height,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              image: const DecorationImage(
+              image: DecorationImage(
                 image: NetworkImage(
-                  dummyImage2,
+                  img,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -44,11 +51,11 @@ class CustomNewsTailWidgets extends StatelessWidget {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Icon(
+                    children: [
+                      const Icon(
                         Icons.access_time_filled_outlined,
                       ),
-                      Text('20 Min')
+                      Text(time)
                     ],
                   ),
                 ),
@@ -58,9 +65,9 @@ class CustomNewsTailWidgets extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            style: TextStyle(
+          Text(
+            title,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
               color: appBlack,

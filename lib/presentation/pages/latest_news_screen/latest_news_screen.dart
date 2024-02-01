@@ -29,7 +29,8 @@ class LatestNews extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  CustomNewsTailWidgets(),
+                  CustomNewsTailWidgets(img: dummyImage2, title:    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                  time: '20 Min'),
                   const Text(
                     dummyText,
                     maxLines: 2,

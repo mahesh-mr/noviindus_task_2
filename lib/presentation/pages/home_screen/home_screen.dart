@@ -6,29 +6,31 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:noviindus_task_2/presentation/controller/category_controller.dart';
 import 'package:noviindus_task_2/presentation/core/const.dart';
-
-import '../../../data/category_service/category_service.dart';
+import '../../controller/each_category_list_controller.dart';
 import '../all_news_screen.dart/all_news_screen.dart';
-import '../tabs/tab_1.dart';
-import '../tabs/tab_2.dart';
-import '../tabs/tab_3.dart';
-import '../tabs/tab_4.dart';
+import 'package:get_storage/get_storage.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final blogController = Get.put(CategoryController());
+
+  final eachCategoryController = Get.put(EachCategoryListController());
+
+  final store = GetStorage();
   @override
   Widget build(BuildContext context) {
+  //  final int id = store.read('categoryId');
     final size = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          log("clicked");
-
-          blogController.getCategory();
-          log("${blogController.blogsCategory.length}");
-          //CategoryService.getCategeryImpl();
+          eachCategoryController.getCategory();
         },
       ),
       body: DefaultTabController(
@@ -41,31 +43,42 @@ class HomeScreen extends StatelessWidget {
                 elevation: 0,
                 foregroundColor: appBlack,
                 bottom: TabBar(
-                    // indicator:CircularProgressIndicator(color: appOrenge,),
-                    unselectedLabelColor: appBlack,
-                    indicatorColor: appBlack,
-                    labelColor: appLebelColor,
-                    tabs: List.generate(
-                      blogController.blogsCategory.length,
-                      (index) {
-                        return Container(
-                          child: Tab(
-                              text: blogController.blogsCategory[index].name!),
-                        );
-                      },
-                    )),
+                  isScrollable: true,
+                  onTap: (value) {
+                    final int id = store.read('categoryId');
+                  //id;
+             log('msg id $id');
+                  },
+                  unselectedLabelColor: appBlack,
+                  indicatorColor: appBlack,
+                  labelColor: appLebelColor,
+                  tabs: List.generate(
+                    blogController.blogsCategory.length,
+                    (index) {
+                      return Obx(() {
+                        if (blogController.loding.value) {
+                          CircularProgressIndicator();
+                        }
+                        return Tab(
+                            text: blogController.blogsCategory[index].id
+                                .toString());
+                      });
+                    },
+                  ),
+                ),
               )
             ];
           },
-          body: const TabBarView(
-            children: [
-              AllNews(),
-              Tab2(),
-              Tab3(),
-              Tab4(),
-              Tab3(),
-              Tab4(),
-            ],
+          body: TabBarView(
+            children:
+                List.generate(blogController.blogsCategory.length, (index) {
+                  log("${ blogController.blogsCategory[index].id}");
+              store.write(
+                  'categoryId',  blogController.blogsCategory[index].id!);
+              return AllNews(
+                index: blogController.blogsCategory[index].id!,
+              );
+            }),
           ),
         ),
       ),
