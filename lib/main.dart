@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'view/const/const.dart';
-import 'view/each_news_screen/each_news_screen.dart';
-import 'view/home_screen/home_screen.dart';
-import 'view/latest_news_screen/latest_news_screen.dart';
+import 'presentation/core/const.dart';
+import 'presentation/pages/each_news_screen/each_news_screen.dart';
+import 'presentation/pages/home_screen/home_screen.dart';
+import 'presentation/pages/latest_news_screen/latest_news_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home:  HomeScreen(),
     );
   }
 }

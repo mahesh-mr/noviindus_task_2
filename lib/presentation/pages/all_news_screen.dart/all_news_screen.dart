@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:noviindus_task_2/view/const/const.dart';
-import 'package:noviindus_task_2/view/each_news_screen/each_news_screen.dart';
+import 'package:noviindus_task_2/presentation/core/const.dart';
+import 'package:noviindus_task_2/presentation/pages/each_news_screen/each_news_screen.dart';
 
 import '../latest_news_screen/latest_news_screen.dart';
-import 'widgets/custom_news_tile_widget.dart';
+import '../../widgets/custom_news_tile_widget.dart';
 import 'widgets/read_more.dart';
 
 class AllNews extends StatelessWidget {
@@ -62,12 +62,25 @@ class AllNews extends StatelessWidget {
         Expanded(
           child: ListView.separated(
               itemBuilder: (context, index) {
-                return CustomNewsTailWidgets(
+                return GestureDetector(
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const EachNewsScreen(),
+                      builder: (context) => EachNewsScreen(),
                     ),
+                  ),
+                  child: Column(
+                    children: [
+                      CustomNewsTailWidgets(),
+                      const Text(
+                        dummyText,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: appBlack,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },

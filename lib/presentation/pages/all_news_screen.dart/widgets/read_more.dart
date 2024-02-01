@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../const/const.dart';
+import '../../../core/const.dart';
 
 class ReadMoreWidget extends StatelessWidget {
   const ReadMoreWidget({

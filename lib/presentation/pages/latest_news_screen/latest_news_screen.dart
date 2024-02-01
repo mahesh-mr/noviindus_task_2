@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:noviindus_task_2/view/each_news_screen/each_news_screen.dart';
+import 'package:noviindus_task_2/presentation/pages/each_news_screen/each_news_screen.dart';
 
-import '../all_news_screen.dart/widgets/custom_news_tile_widget.dart';
-import '../const/const.dart';
+import '../../widgets/custom_news_tile_widget.dart';
+import '../../core/const.dart';
 
 class LatestNews extends StatelessWidget {
   const LatestNews({super.key});
@@ -20,12 +20,25 @@ class LatestNews extends StatelessWidget {
       ),
       body: ListView.separated(
           itemBuilder: (context, index) {
-            return CustomNewsTailWidgets(
+            return GestureDetector(
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const EachNewsScreen(),
                 ),
+              ),
+              child: Column(
+                children: [
+                  CustomNewsTailWidgets(),
+                  const Text(
+                    dummyText,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: appBlack,
+                    ),
+                  ),
+                ],
               ),
             );
           },
