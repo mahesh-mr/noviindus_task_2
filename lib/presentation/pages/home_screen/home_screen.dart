@@ -28,11 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //  final int id = store.read('categoryId');
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          eachCategoryController.getCategory();
-        },
-      ),
+     
       body: DefaultTabController(
         length: 4,
         child: NestedScrollView(
