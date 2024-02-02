@@ -28,102 +28,126 @@ class _AllNewsState extends State<AllNews> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    EachCategoryListService.getEachCategeryImpl();
+    eachCategoryController.getCategory(
+        categoryId: blogController.blogsCategory[widget.index].id!);
+    //  EachCategoryListService.getEachCategeryImpl();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: size.height * 0.38,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: appLebelColor,
-              image: DecorationImage(
-                  image: NetworkImage(
-                    dummyImage1,
-                    //
-                  ),
-                  fit: BoxFit.cover),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18, color: bg),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Lorem Ipsum is simply",
-                    style: TextStyle(fontSize: 15, color: bg),
-                  )
-                ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(
+              'Go to Next Page with ID: ${blogController.blogsCategory[widget.index].id}');
+        },
+      ),
+      body: Obx(() {
+        if (eachCategoryController.loding.value) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Column(
+          children: [
+            Container(
+              height: size.height * 0.38,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: appLebelColor,
+                image: DecorationImage(
+                    image: NetworkImage(
+                      dummyImage1,
+                      //
+                    ),
+                    fit: BoxFit.cover),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18, color: bg),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Lorem Ipsum is simply",
+                      style: TextStyle(fontSize: 15, color: bg),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ReadMoreWidget(
-            ontap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LatestNews(),
-                )),
-          ),
-          Expanded(
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EachNewsScreen(),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        CustomNewsTailWidgets(
-                          img: imageBaseUrl +
+            const SizedBox(
+              height: 20,
+            ),
+            ReadMoreWidget(
+              ontap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LatestNews(),
+                  )),
+            ),
+            Expanded(
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        print(
+                            'id ${eachCategoryController.blogsCategory[index].id}');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EachNewsScreen(
+                                index: eachCategoryController
+                                    .blogsCategory[index].id!),
+                          ),
+                        );
+                      },
+                      // onTap: () =>
+
+                      child: Column(
+                        children: [
+                          CustomNewsTailWidgets(
+                            img: imageBaseUrl +
+                                eachCategoryController
+                                    .blogsCategory[index].image!,
+                            title: eachCategoryController
+                                .blogsCategory[index].title!,
+                            time: '20 Min',
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.03),
+                            child: Text(
                               eachCategoryController
-                                  .blogsCategory[index].image!,
-                          title: eachCategoryController
-                              .blogsCategory[index].title!,
-                          time: '20 Min',
-                        ),
-                        Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-                          child:  Text(
-                            eachCategoryController
-                              .blogsCategory[index].content!,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: appBlack,
+                                  .blogsCategory[index].content!,
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: appBlack,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 20,
-                    ),
-                itemCount: eachCategoryController.blogsCategory.length),
-          ),
-        ],
-      ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
+                  itemCount: eachCategoryController.blogsCategory.length),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

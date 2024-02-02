@@ -6,11 +6,11 @@ import '../core/dio_clint.dart';
 
 class EachCategoryListService {
   static Future<List<Results>?> getEachCategeryImpl(
-  //    {required int categoryId, }
+  {required int categoryId, }
       ) async {
     try {
       FormData formdata =
-          FormData.fromMap({'category': 1, 'page': 1});
+          FormData.fromMap({'category': categoryId, 'page': 2});
 
       var res = await DioClint.dio.post('news-and-blogs-catg', data: formdata);
       EachCategoryModel model = EachCategoryModel.fromJson(res.data);

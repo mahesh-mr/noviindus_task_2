@@ -8,8 +8,9 @@ import '../../controller/each_news_controller.dart';
 import '../../widgets/custom_news_tile_widget.dart';
 
 class EachNewsScreen extends StatefulWidget {
-  const EachNewsScreen({super.key});
-
+   EachNewsScreen({required this.index,
+    super.key});
+int index;
   @override
   State<EachNewsScreen> createState() => _EachNewsScreenState();
 }
@@ -21,8 +22,7 @@ class _EachNewsScreenState extends State<EachNewsScreen> {
   @override
   void initState() {
     super.initState();
-    eachNewsController.getEachNews(
-        id: eachNewsController.eachNewsModel.value.blog!.id!);
+    eachNewsController.getEachNews(id: widget.index);
   }
 
   @override

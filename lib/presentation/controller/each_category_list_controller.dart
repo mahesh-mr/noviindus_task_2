@@ -8,11 +8,11 @@ class EachCategoryListController extends GetxController {
   var loding = true.obs;
   RxList<Results> blogsCategory = <Results>[].obs;
   Future<List<Results>?> getCategory(
-    //{required int categoryId}
+    {required int categoryId}
   ) async {
     try {
       var data = await EachCategoryListService.getEachCategeryImpl(
-      //    categoryId: categoryId,
+       categoryId: categoryId,
           );
       loding.value = false;
       update();

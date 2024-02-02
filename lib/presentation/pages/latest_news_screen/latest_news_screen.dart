@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:noviindus_task_2/presentation/pages/each_news_screen/each_news_screen.dart';
 
+import '../../controller/each_category_list_controller.dart';
+import '../../controller/each_news_controller.dart';
 import '../../widgets/custom_news_tile_widget.dart';
 import '../../core/const.dart';
 
 class LatestNews extends StatelessWidget {
-  const LatestNews({super.key});
-
+   LatestNews({super.key});
+ 
   @override
   Widget build(BuildContext context) {
+    final eachCategoryController = Get.put(EachCategoryListController());
     return Scaffold(
       backgroundColor: bg,
       appBar: AppBar(
@@ -24,7 +28,8 @@ class LatestNews extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const EachNewsScreen(),
+                  builder: (context) =>  EachNewsScreen(index:  eachCategoryController
+                                    .blogsCategory[index].id!),
                 ),
               ),
               child: Column(

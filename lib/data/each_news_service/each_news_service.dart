@@ -10,7 +10,7 @@ class EachNewsServiceImpl {
     {required int id}
   ) async {
     try {
-      var res = await DioClint.dio.get('news-and-blogs-details/1');
+      var res = await DioClint.dio.get('news-and-blogs-details/$id');
       EachNewsModel eachNewsModel = EachNewsModel.fromJson(res.data);
       log("msg : ${res.data}");
       return eachNewsModel;

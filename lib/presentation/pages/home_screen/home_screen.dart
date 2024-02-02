@@ -26,58 +26,92 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //  final int id = store.read('categoryId');
+
     final size = MediaQuery.of(context).size;
     return Scaffold(
-     
-      body: DefaultTabController(
-        length: 4,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, index) {
-            return [
-              SliverAppBar(
-                title: Text('Nwes & Blogs'),
-                elevation: 0,
-                foregroundColor: appBlack,
-                bottom: TabBar(
-                  isScrollable: true,
-                  onTap: (value) {
-                    final int id = store.read('categoryId');
-                    //id;
-                    log('msg id $id');
-                  },
-                  unselectedLabelColor: appBlack,
-                  indicatorColor: appBlack,
-                  labelColor: appLebelColor,
-                  tabs: List.generate(
-                    blogController.blogsCategory.length,
-                    (index) {
-                      return Obx(() {
-                        if (blogController.loding.value) {
-                          CircularProgressIndicator();
-                        }
-                        return Tab(
-                            text: blogController.blogsCategory[index].name
-                                .toString());
-                      });
+      body: Obx(() {
+        if (blogController.loding.value) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return DefaultTabController(
+          length: blogController.blogsCategory.length,
+          child: NestedScrollView(
+            headerSliverBuilder: (context, index) {
+              return [
+                SliverAppBar(
+                  title: Text('Nwes & Blogs'),
+                  elevation: 0,
+                  foregroundColor: appBlack,
+                  bottom: TabBar(
+                    isScrollable: true,
+                    onTap: (value) {
+                      // setState(() {});
+                      // final catId = store.write(
+                      //     'category', blogController.blogsCategory[0].id ?? 0);
+                      // final id = store.read('category');
+                      // print(id);
+                      // final int id = store.read('categoryId');
+                      // //id;
+                      // log('msg id $id');
                     },
+                    unselectedLabelColor: appBlack,
+                    indicatorColor: appBlack,
+                    labelColor: appLebelColor,
+                    tabs: List.generate(
+                      blogController.blogsCategory.length,
+                      (index) {
+                        print(
+                            "id: ${blogController.blogsCategory.value[index].name}");
+                        print(
+                            "id: ${blogController.blogsCategory.value[index].id}");
+                        return Obx(() {
+                          print(blogController.blogsCategory.length);
+                          if (blogController.loding.value) {
+                            CircularProgressIndicator();
+                          }
+                          return Tab(
+                              text: blogController.blogsCategory[index].name!);
+                        });
+                      },
+                    ),
                   ),
-                ),
-              )
-            ];
-          },
-          body: TabBarView(
-            children:
-                List.generate(blogController.blogsCategory.length, (index) {
-              log("${blogController.blogsCategory[index].id}");
-              store.write(
-                  'categoryId', blogController.blogsCategory[index].id!);
-              return AllNews(
+                )
+              ];
+            },
+            body: TabBarView(
+              children:
+                  List.generate(blogController.blogsCategory.length, (index) {
+                // log("${blogController.blogsCategory[index].id}");
+                // store.write(
+                //     'categoryId', blogController.blogsCategory[index].id!);
+                return AllNews(
                 index: blogController.blogsCategory[index].id!,
               );
-            }),
+               
+              }),
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
+
+
+// return DefaultTabController(
+//       length: appState.leaderboard.groups.length,
+//       child: NestedScrollView(
+//         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+//           return <Widget>[
+//             SliverAppBar(
+//               title: Text(_tabName, style: TextStyle(fontSize: 30)),
+//               actions: <Widget>[
+//                 IconButton(
+//                   icon: Icon(Icons.refresh),
+//                   onPressed: () => setState(() {
+//                     appState.leaderboard = Seeder.generateLeaderboard();
+//                   }),
+//                 ),
+//               ],
