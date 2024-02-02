@@ -83,13 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
             body: TabBarView(
               children:
                   List.generate(blogController.blogsCategory.length, (index) {
-                // log("${blogController.blogsCategory[index].id}");
-                // store.write(
-                //     'categoryId', blogController.blogsCategory[index].id!);
-                return AllNews(
-                index: blogController.blogsCategory[index].id!,
-              );
-               
+                return Obx(() {
+                  return AllNews(
+                    index: blogController.blogsCategory[index].id!,
+                  );
+                });
               }),
             ),
           ),
@@ -98,20 +96,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-// return DefaultTabController(
-//       length: appState.leaderboard.groups.length,
-//       child: NestedScrollView(
-//         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-//           return <Widget>[
-//             SliverAppBar(
-//               title: Text(_tabName, style: TextStyle(fontSize: 30)),
-//               actions: <Widget>[
-//                 IconButton(
-//                   icon: Icon(Icons.refresh),
-//                   onPressed: () => setState(() {
-//                     appState.leaderboard = Seeder.generateLeaderboard();
-//                   }),
-//                 ),
-//               ],

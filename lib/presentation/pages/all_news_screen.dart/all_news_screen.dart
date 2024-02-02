@@ -37,12 +37,7 @@ class _AllNewsState extends State<AllNews> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print(
-              'Go to Next Page with ID: ${blogController.blogsCategory[widget.index].id}');
-        },
-      ),
+     
       body: Obx(() {
         if (eachCategoryController.loding.value) {
           return Center(
